@@ -3,18 +3,36 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
+import { BlurView } from "expo-blur";
+import CustomHeader from "@/components/custom-header/custom-header";
 
 const Page = () => {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
+        tabBarBackground: () => (
+          <BlurView
+            intensity={100}
+            tint={'extraLight'}
+            style={{
+              flex: 1,
+              backgroundColor: "rgba(0,0,0,0.2)",
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+            }}
+          />
+        ),
         tabBarStyle: {
+          backgroundColor: "transparent",
           borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          elevation: 0,
+          borderTopWidth: 0,
         },
       }}
     >
@@ -25,6 +43,8 @@ const Page = () => {
           tabBarIcon: ({ size, color }) => (
             <FontAwesome name="registered" size={size} color={color} />
           ),
+          header: () => <CustomHeader />,
+          headerTransparent: true,
         }}
       />
       <Tabs.Screen
@@ -37,7 +57,7 @@ const Page = () => {
         }}
       />
       <Tabs.Screen
-        name="transfers"
+        name="transfer"
         options={{
           title: "Transfers",
           tabBarIcon: ({ size, color }) => (
